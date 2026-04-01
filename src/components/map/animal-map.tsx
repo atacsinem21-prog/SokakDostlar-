@@ -35,6 +35,7 @@ export function AnimalMap() {
     geoState,
     flyToUser,
     requestLocation,
+    openMapWithoutLocation,
     wideAreaWarning,
     mapInteractionEnabled,
   } = useAnimalsMap();
@@ -98,6 +99,11 @@ export function AnimalMap() {
                 adede kadar) gösterir; böylece hem gizlilik korunur hem harita
                 akıcı kalır.
               </p>
+              {fetchError ? (
+                <p className="max-w-md rounded-lg bg-amber-500/20 px-3 py-2 text-xs leading-relaxed text-amber-50">
+                  {fetchError}
+                </p>
+              ) : null}
               <button
                 type="button"
                 onClick={() => requestLocation()}
@@ -105,20 +111,42 @@ export function AnimalMap() {
               >
                 Konumu paylaş
               </button>
+              <button
+                type="button"
+                onClick={() => openMapWithoutLocation()}
+                className="text-sm font-medium text-white/90 underline decoration-white/40 underline-offset-2 transition hover:text-white"
+              >
+                Konum paylaşmadan haritayı aç (Türkiye geneli)
+              </button>
             </>
           )}
         </div>
       ) : null}
 
       {showDenied ? (
-        <div className="absolute inset-0 z-[600] flex flex-col items-center justify-center gap-4 bg-zinc-900/80 px-6 text-center backdrop-blur-sm">
+        <div className="absolute inset-0 z-[600] flex max-h-[100dvh] flex-col items-center justify-center gap-3 overflow-y-auto bg-zinc-900/80 px-5 py-8 text-center backdrop-blur-sm">
           <p className="max-w-md text-base font-semibold text-white">
-            Konum izni olmadan harita açılamıyor
+            Konum izni kapalı veya reddedildi
+          </p>
+          <p className="max-w-md text-left text-xs leading-relaxed text-white/80">
+            <span className="font-semibold text-white">iPhone (Safari):</span>{" "}
+            Bir kez reddettiysen site tekrar izin penceresi göstermez.{" "}
+            <strong>Ayarlar → Safari → Konum</strong> veya{" "}
+            <strong>
+              Ayarlar → Gizlilik ve Güvenlik → Konum Hizmetleri → Safari
+              Web Siteleri
+            </strong>{" "}
+            içinde <strong>patisid.app</strong> için «Sor» veya «Uygulama
+            kullanırken» seç.
+          </p>
+          <p className="max-w-md text-left text-xs leading-relaxed text-white/80">
+            <span className="font-semibold text-white">Android (Chrome):</span>{" "}
+            Chrome menü → <strong>Ayarlar → Site ayarları → Konum</strong> veya
+            sistem <strong>Ayarlar → Uygulamalar → Chrome → İzinler → Konum</strong>.
           </p>
           <p className="max-w-md text-sm leading-relaxed text-white/85">
-            Yakınındaki patili dostlarını listelemek için tarayıcı veya sistem
-            ayarlarından bu siteye konum erişimine izin ver, ardından tekrar
-            dene.
+            İzin verdikten sonra aşağıdan tekrar dene; olmazsa konum olmadan
+            genel haritayı açabilirsin.
           </p>
           <button
             type="button"
@@ -126,6 +154,13 @@ export function AnimalMap() {
             className="rounded-xl bg-[#1D7EDB] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#176fc4]"
           >
             Tekrar dene
+          </button>
+          <button
+            type="button"
+            onClick={() => openMapWithoutLocation()}
+            className="rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
+          >
+            Konum paylaşmadan haritayı aç (Türkiye)
           </button>
         </div>
       ) : null}

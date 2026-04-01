@@ -10,6 +10,7 @@ import {
   NEARBY_MAP_PIN_LIMIT,
   bboxAroundPoint,
   distanceMeters,
+  limitForBBoxArea,
   type MapBBox,
 } from "@/lib/map-bbox";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
@@ -105,6 +106,18 @@ export function useAnimalsMap() {
     setWideAreaWarning(zoom < 13 || span > 0.14);
   }, []);
 
+  /** Konum izni yok veya kullanıcı reddettiysen; Türkiye kutusu + geniş limit */
+  const openMapWithoutLocation = useCallback(() => {
+    bboxRef.current = DEFAULT_TURKEY_BBOX;
+    limitRef.current = limitForBBoxArea(DEFAULT_TURKEY_BBOX);
+    watchAnchorRef.current = null;
+    setFlyToUser({ lat: 39, lng: 35, zoom: 6 });
+    setGeoState("ready");
+    setLocationAnchor(null);
+    setFetchError(null);
+    void refetch();
+  }, [refetch]);
+
   const requestLocation = useCallback(() => {
     if (typeof navigator === "undefined" || !navigator.geolocation) {
       setGeoState("denied");
@@ -134,14 +147,23 @@ export function useAnimalsMap() {
         setLocationAnchor({ lat: latitude, lng: longitude });
         void refetch();
       },
-      () => {
+      (err) => {
         if (!mounted.current) return;
-        setGeoState("denied");
+        // 1 = PERMISSION_DENIED — iOS Safari tekrar pencere açmaz; kullanıcıyı ayarlara yönlendir
+        if (err.code === 1) {
+          setGeoState("denied");
+          return;
+        }
+        // 2/3: zaman aşımı veya sinyal yok — kalıcı red değil
+        setGeoState("prompt");
+        setFetchError(
+          "Konum şu an alınamadı. Tekrar dene veya konum paylaşmadan genel haritayı aç.",
+        );
       },
       {
-        enableHighAccuracy: true,
-        maximumAge: 0,
-        timeout: 20_000,
+        enableHighAccuracy: false,
+        maximumAge: 60_000,
+        timeout: 25_000,
       },
     );
   }, [refetch]);
@@ -262,6 +284,7 @@ export function useAnimalsMap() {
     geoState,
     flyToUser,
     requestLocation,
+    openMapWithoutLocation,
     wideAreaWarning,
     mapInteractionEnabled: geoState === "ready",
   };
