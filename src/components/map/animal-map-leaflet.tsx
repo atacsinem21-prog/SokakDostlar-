@@ -53,10 +53,13 @@ type LeafletWithCluster = typeof L & {
 function MapResizeInvalidator({ tick }: { tick: number }) {
   const map = useMap();
   useEffect(() => {
-    const id = window.setTimeout(() => {
-      map.invalidateSize({ animate: true });
-    }, 120);
-    return () => window.clearTimeout(id);
+    const run = () => map.invalidateSize({ animate: tick > 0 });
+    const id1 = window.setTimeout(run, 16);
+    const id2 = window.setTimeout(run, 280);
+    return () => {
+      window.clearTimeout(id1);
+      window.clearTimeout(id2);
+    };
   }, [map, tick]);
   return null;
 }

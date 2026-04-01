@@ -75,7 +75,7 @@ export function AnimalMap() {
   const squareMobile = ready && !mobileMapExpanded;
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col">
+    <div className="relative flex min-h-0 w-full flex-1 flex-col">
       {showLocationGate ? (
         <div className="absolute inset-0 z-[600] flex flex-col items-center justify-center gap-4 bg-zinc-900/75 px-6 text-center backdrop-blur-sm">
           {geoState === "locating" ? (
@@ -164,7 +164,7 @@ export function AnimalMap() {
               ? "relative h-full min-h-[50vh] w-full overflow-hidden bg-zinc-100 md:min-h-0"
               : mobileMapExpanded
                 ? "relative h-full min-h-0 w-full flex-1 overflow-hidden bg-zinc-100"
-                : "relative w-full overflow-hidden bg-zinc-100 max-md:aspect-square max-md:w-[min(85vw,380px)] max-md:max-w-full max-md:rounded-2xl max-md:border max-md:border-zinc-200/80 max-md:shadow-xl md:h-full md:rounded-none md:border-0 md:shadow-none"
+                : "relative w-full min-h-[min(70vh,calc(100dvh-12rem))] overflow-hidden bg-zinc-100 max-md:aspect-square max-md:min-h-0 max-md:w-[min(85vw,380px)] max-md:max-w-full max-md:rounded-2xl max-md:border max-md:border-zinc-200/80 max-md:shadow-xl md:h-full md:min-h-[calc(100dvh-12rem)] md:rounded-none md:border-0 md:shadow-none"
           }
         >
           <Link
