@@ -128,6 +128,16 @@ function GirisForm() {
           Kayıt ol
         </Link>
       </p>
+      <p className="mt-4 text-left text-xs leading-relaxed text-zinc-500 md:text-white/65">
+        Giriş yapmadan{" "}
+        <Link
+          href="/hakkinda"
+          className="font-medium text-zinc-700 underline decoration-zinc-400 underline-offset-2 hover:text-zinc-900 md:text-white/90 md:decoration-white/50"
+        >
+          Hakkında
+        </Link>{" "}
+        sayfasında projeyi okuyabilirsin.
+      </p>
     </AuthFullscreenLayout>
   );
 }

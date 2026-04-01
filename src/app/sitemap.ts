@@ -14,6 +14,7 @@ const paths: string[] = [
   "/kanit",
   "/gizlilik",
   "/cerez-politikasi",
+  "/hakkinda",
   "/ara",
 ];
 

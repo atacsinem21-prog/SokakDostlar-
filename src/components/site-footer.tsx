@@ -10,6 +10,7 @@ const nav = [
   { href: "/harita", label: "Harita" },
   { href: "/gorevler", label: "Görevler" },
   { href: "/liderlik", label: "Liderlik" },
+  { href: "/hakkinda", label: "Hakkında" },
   { href: "/gizlilik", label: "Gizlilik" },
   { href: "/cerez-politikasi", label: "Çerez politikası" },
 ] as const;
@@ -65,7 +66,11 @@ export function SiteFooter() {
           aria-label="Alt bilgi"
         >
           {nav.map((item) => {
-            if (item.href === "/gizlilik" || item.href === "/cerez-politikasi") {
+            if (
+              item.href === "/gizlilik" ||
+              item.href === "/cerez-politikasi" ||
+              item.href === "/hakkinda"
+            ) {
               return (
                 <Link key={item.href} href={item.href} className={linkActive}>
                   {item.label}

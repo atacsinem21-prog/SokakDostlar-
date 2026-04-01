@@ -79,7 +79,7 @@ function KayitForm() {
       if (data.user && !data.session) {
         setAwaitingEmailOtp(true);
         setInfo(
-          "E-postana gönderilen 6 haneli kodu aşağıya girerek hesabını doğrula.",
+          "E-postana gönderilen doğrulama kodunu (genelde 6 veya 8 rakam) aşağıya girerek hesabını doğrula.",
         );
         return;
       }
@@ -96,8 +96,8 @@ function KayitForm() {
     e.preventDefault();
     setError("");
     const code = otp.replace(/\D/g, "").slice(0, 8);
-    if (code.length < 6) {
-      setError("Lütfen e-postadaki 6 haneli kodu gir.");
+    if (code.length < 6 || code.length > 8) {
+      setError("Lütfen e-postadaki kodu eksiksiz gir (6 veya 8 rakam).");
       return;
     }
     setVerifyLoading(true);
@@ -192,12 +192,13 @@ function KayitForm() {
               maxLength={8}
               value={otp}
               onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-              placeholder="6 haneli kod"
-              className={`${inputClass} text-center font-mono text-lg tracking-[0.35em]`}
+              placeholder="6 veya 8 haneli kod"
+              className={`${inputClass} text-center font-mono text-lg tracking-[0.3em]`}
               aria-describedby="otp-hint"
             />
             <span id="otp-hint" className="text-xs text-zinc-500 md:text-white/60">
-              Kod genelde 6 rakamdır; e-postanın başlığında veya gövdesinde yazar.
+              Supabase ayarına göre kod 6 veya 8 rakam olabilir; e-postanın
+              gövdesindeki tam sayıyı gir.
             </span>
           </label>
           {error ? (
@@ -306,6 +307,16 @@ function KayitForm() {
         >
           Giriş yap
         </Link>
+      </p>
+      <p className="mt-4 text-left text-xs leading-relaxed text-zinc-500 md:text-white/65">
+        Kayıt olmadan önce{" "}
+        <Link
+          href="/hakkinda"
+          className="font-medium text-zinc-700 underline decoration-zinc-400 underline-offset-2 hover:text-zinc-900 md:text-white/90 md:decoration-white/50"
+        >
+          Hakkında
+        </Link>{" "}
+        sayfasından projenin ne işe yaradığını okuyabilirsin.
       </p>
     </AuthFullscreenLayout>
   );

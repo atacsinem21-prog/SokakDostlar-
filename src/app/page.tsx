@@ -77,6 +77,13 @@ export default function HomePage() {
               Çerez politikası
             </Link>
             <span className="mx-2 text-zinc-300">·</span>
+            <Link
+              href="/hakkinda"
+              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
+            >
+              Hakkında
+            </Link>
+            <span className="mx-2 text-zinc-300">·</span>
             Kayıt olarak görev ve puan akışına katılabilirsin.
           </p>
         </footer>
