@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply m-0 scroll-smooth bg-zinc-50 p-0;
+  }
+  body {
+    @apply m-0 min-h-dvh bg-zinc-50 p-0;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-amber-500/50 ring-offset-2 ring-offset-zinc-50;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-zinc-800 active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-800 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 active:scale-[0.98];
+  }
+  .card-surface {
+    @apply rounded-2xl border border-zinc-200/90 bg-white shadow-sm;
+  }
+  .page-title {
+    @apply text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl;
+  }
+  .page-lead {
+    @apply text-sm leading-relaxed text-zinc-600 sm:text-base;
+  }
+}
