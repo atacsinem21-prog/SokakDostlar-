@@ -11,6 +11,7 @@ const nav = [
   { href: "/gorevler", label: "Görevler" },
   { href: "/liderlik", label: "Liderlik" },
   { href: "/gizlilik", label: "Gizlilik" },
+  { href: "/cerez-politikasi", label: "Çerez politikası" },
 ] as const;
 
 function isAuthHeroPath(pathname: string | null): boolean {
@@ -64,7 +65,7 @@ export function SiteFooter() {
           aria-label="Alt bilgi"
         >
           {nav.map((item) => {
-            if (item.href === "/gizlilik") {
+            if (item.href === "/gizlilik" || item.href === "/cerez-politikasi") {
               return (
                 <Link key={item.href} href={item.href} className={linkActive}>
                   {item.label}

@@ -150,7 +150,7 @@ Calistirilacak dosyalar:
 
 Supabase Dashboard > SQL > New query > dosya iceriklerini sirayla yapistir > Run.
 
-**Auth:** Dashboard > Authentication > URL Configuration: **Site URL** (ornek `http://localhost:3000`) ve `Redirect URLs` icine `http://localhost:3000/auth/callback` (prod domain icin ayni sekilde ekle).
+**Auth:** Dashboard > Authentication > URL Configuration: **Site URL** canlıda `https://patisid.app`; yerel test için `http://localhost:3000`. **Redirect URLs** içine hem `https://patisid.app/auth/callback` hem `http://localhost:3000/auth/callback` eklenmeli.
 
 **Harita API:** `GET /api/animals?west=&south=&east=&north=&limit=` gorunur alan + limit (400–12000). Tarayici ilk acilista **konum izni** ister; izin verilirse yalnizca **yakin cevre** kutusu yuklenir (harita kilitlenmesin diye). Izin yoksa Turkiye kutusu + dusuk limit. **HTTPS** veya `localhost` gerekir (Geolocation API).
 

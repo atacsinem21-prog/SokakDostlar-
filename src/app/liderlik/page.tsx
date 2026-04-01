@@ -1,8 +1,9 @@
 import { PageShell } from "@/components/ui/page-shell";
+import { getServerRequestOrigin } from "@/lib/site-url";
 import type { LeaderboardRow } from "@/types/gamification";
 
 async function getLeaderboard(): Promise<LeaderboardRow[]> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const base = await getServerRequestOrigin();
   const res = await fetch(`${base}/api/leaderboard`, { cache: "no-store" });
   if (!res.ok) return [];
   const json = (await res.json()) as { leaderboard?: LeaderboardRow[] };

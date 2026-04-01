@@ -6,8 +6,15 @@ import { FormEvent, Suspense, useState } from "react";
 
 import { AuthFullscreenLayout } from "@/components/auth/auth-fullscreen-layout";
 import { AUTH_POWDER_INPUT } from "@/lib/brand";
+import {
+  formatSupabaseAuthError,
+  formatUnknownAuthError,
+} from "@/lib/auth-errors";
 import { safeInternalPath } from "@/lib/auth/safe-redirect";
+import { withTimeout } from "@/lib/promise-timeout";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
+
+const AUTH_TIMEOUT_MS = 60_000;
 
 const inputClass = `w-full rounded-lg border border-zinc-300/90 px-3 py-3 text-sm text-zinc-900 shadow-sm placeholder:text-zinc-400 focus:border-amber-400/80 focus:outline-none focus:ring-2 focus:ring-amber-500/25 md:bg-white ${AUTH_POWDER_INPUT}`;
 
@@ -27,18 +34,22 @@ function GirisForm() {
     setLoading(true);
     try {
       const sb = createBrowserSupabaseClient();
-      const { error: err } = await sb.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
+      const { error: err } = await withTimeout(
+        sb.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        }),
+        AUTH_TIMEOUT_MS,
+        "Sunucu yanıt vermedi. Bağlantını kontrol edip tekrar dene.",
+      );
       if (err) {
-        setError(err.message);
+        setError(formatSupabaseAuthError(err));
         return;
       }
       router.push(nextAfterLogin);
       router.refresh();
-    } catch {
-      setError("Giriş başarısız.");
+    } catch (e) {
+      setError(formatUnknownAuthError(e));
     } finally {
       setLoading(false);
     }

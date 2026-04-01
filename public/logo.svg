@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="PAT0S0D">
+  <rect width="512" height="512" rx="96" fill="#fafaf9"/>
+  <path fill="#b45309" d="M128 280c0-44 36-80 80-80s80 36 80 80-36 80-80 80-80-36-80-80zm176-96c0-35 29-64 64-64s64 29 64 64-29 64-64 64-64-29-64-64z"/>
+  <path fill="#18181b" d="M96 352h320v48H96v-48z"/>
+  <text x="256" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="56" font-weight="700" fill="#18181b">PAT0S0D</text>
+</svg>

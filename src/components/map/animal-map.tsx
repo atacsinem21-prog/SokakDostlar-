@@ -41,6 +41,9 @@ export function AnimalMap() {
 
   const [selected, setSelected] = useState<AnimalMapRow | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+  /** Mobil: konum hazırken varsayılan kare; tam ekran açılır */
+  const [mobileMapExpanded, setMobileMapExpanded] = useState(false);
+  const [resizeTick, setResizeTick] = useState(0);
 
   useEffect(() => {
     setSelected((prev) => {
@@ -59,11 +62,20 @@ export function AnimalMap() {
     setSheetOpen(false);
   };
 
+  const bumpResize = () => setResizeTick((n) => n + 1);
+
+  const toggleMobileExpand = () => {
+    setMobileMapExpanded((v) => !v);
+    bumpResize();
+  };
+
   const showLocationGate = geoState === "prompt" || geoState === "locating";
   const showDenied = geoState === "denied";
+  const ready = geoState === "ready";
+  const squareMobile = ready && !mobileMapExpanded;
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative flex h-full min-h-0 w-full flex-col">
       {showLocationGate ? (
         <div className="absolute inset-0 z-[600] flex flex-col items-center justify-center gap-4 bg-zinc-900/75 px-6 text-center backdrop-blur-sm">
           {geoState === "locating" ? (
@@ -118,8 +130,8 @@ export function AnimalMap() {
         </div>
       ) : null}
 
-      {geoState === "ready" && wideAreaWarning ? (
-        <div className="pointer-events-none absolute bottom-12 left-3 right-3 z-[500] rounded-xl border border-amber-200/80 bg-amber-50/95 px-3 py-2.5 text-center text-xs text-amber-950 shadow-md backdrop-blur sm:bottom-14">
+      {ready && wideAreaWarning ? (
+        <div className="pointer-events-none absolute bottom-12 left-3 right-3 z-[500] max-md:bottom-28 rounded-xl border border-amber-200/80 bg-amber-50/95 px-3 py-2.5 text-center text-xs text-amber-950 shadow-md backdrop-blur sm:bottom-14">
           <span className="font-medium">Yakın çevre modu:</span> Haritada
           yalnızca bulunduğun konumun çevresindeki patili dostlar
           gösterilmektedir; uzaklaştırdığında başka bölgelerdeki tüm kayıtlar
@@ -127,35 +139,76 @@ export function AnimalMap() {
         </div>
       ) : null}
 
-      <Link
-        href="/harita/patili-ekle"
-        className="absolute right-3 top-3 z-[520] rounded-xl bg-zinc-900 px-3 py-2 text-xs font-medium text-white shadow-lg transition hover:bg-zinc-800 sm:text-sm"
+      <div
+        className={`relative flex min-h-0 flex-1 flex-col md:block ${
+          ready && mobileMapExpanded
+            ? "max-md:fixed max-md:inset-0 max-md:z-[530] max-md:bg-white"
+            : squareMobile
+              ? "max-md:items-center max-md:justify-center max-md:py-3"
+              : ""
+        }`}
       >
-        Patili ekle
-      </Link>
+        {ready && mobileMapExpanded ? (
+          <button
+            type="button"
+            onClick={toggleMobileExpand}
+            className="absolute left-3 top-3 z-[560] rounded-full border border-zinc-200/90 bg-white/95 px-3 py-1.5 text-xs font-semibold text-zinc-800 shadow-md backdrop-blur md:hidden"
+          >
+            Kare görünüm
+          </button>
+        ) : null}
 
-      {fetchError ? (
-        <div className="absolute left-3 right-3 top-14 z-[500] rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-900 shadow sm:top-16">
-          {fetchError}
+        <div
+          className={
+            !ready
+              ? "relative h-full min-h-[50vh] w-full overflow-hidden bg-zinc-100 md:min-h-0"
+              : mobileMapExpanded
+                ? "relative h-full min-h-0 w-full flex-1 overflow-hidden bg-zinc-100"
+                : "relative w-full overflow-hidden bg-zinc-100 max-md:aspect-square max-md:w-[min(85vw,380px)] max-md:max-w-full max-md:rounded-2xl max-md:border max-md:border-zinc-200/80 max-md:shadow-xl md:h-full md:rounded-none md:border-0 md:shadow-none"
+          }
+        >
+          <Link
+            href="/harita/patili-ekle"
+            className="absolute right-3 top-3 z-[560] rounded-xl bg-zinc-900 px-3 py-2 text-xs font-medium text-white shadow-lg transition hover:bg-zinc-800 sm:text-sm"
+          >
+            Patili ekle
+          </Link>
+
+          {fetchError ? (
+            <div className="absolute left-3 right-3 top-14 z-[500] rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-900 shadow sm:top-16">
+              {fetchError}
+            </div>
+          ) : null}
+
+          <IyilikBildirimleri
+            items={notifications}
+            onDismiss={dismissNotification}
+          />
+          {ready ? (
+            <RealtimeStatusPill status={realtimeStatus} />
+          ) : null}
+
+          <AnimalMapLeaflet
+            animals={ready ? animals : []}
+            onMarkerClick={openSheet}
+            onMapClick={closeSheet}
+            onViewportChange={reportMapView}
+            viewportReportingEnabled={mapInteractionEnabled}
+            flyToUser={flyToUser}
+            resizeTick={resizeTick}
+          />
         </div>
-      ) : null}
 
-      <IyilikBildirimleri
-        items={notifications}
-        onDismiss={dismissNotification}
-      />
-      {geoState === "ready" ? (
-        <RealtimeStatusPill status={realtimeStatus} />
-      ) : null}
-
-      <AnimalMapLeaflet
-        animals={geoState === "ready" ? animals : []}
-        onMarkerClick={openSheet}
-        onMapClick={closeSheet}
-        onViewportChange={reportMapView}
-        viewportReportingEnabled={mapInteractionEnabled}
-        flyToUser={flyToUser}
-      />
+        {ready && !mobileMapExpanded ? (
+          <button
+            type="button"
+            onClick={toggleMobileExpand}
+            className="mt-3 w-full max-w-[min(85vw,380px)] self-center rounded-full border border-zinc-200/90 bg-white/95 px-4 py-2.5 text-sm font-semibold text-zinc-800 shadow-md backdrop-blur transition hover:bg-zinc-50 md:hidden"
+          >
+            Tam ekran harita
+          </button>
+        ) : null}
+      </div>
 
       <AnimalDetailSheet
         animal={selected}

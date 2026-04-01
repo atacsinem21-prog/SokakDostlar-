@@ -50,6 +50,17 @@ type LeafletWithCluster = typeof L & {
   markerClusterGroup: (options?: Record<string, unknown>) => MarkerClusterGroupLayer;
 };
 
+function MapResizeInvalidator({ tick }: { tick: number }) {
+  const map = useMap();
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      map.invalidateSize({ animate: true });
+    }, 120);
+    return () => window.clearTimeout(id);
+  }, [map, tick]);
+  return null;
+}
+
 function FlyToUser({ target }: { target: FlyToTarget | null }) {
   const map = useMap();
   const flew = useRef(false);
@@ -174,6 +185,8 @@ type Props = {
   onViewportChange: (b: MapBBox, zoom: number) => void;
   viewportReportingEnabled: boolean;
   flyToUser: FlyToTarget | null;
+  /** Kare ↔ tam ekran geçişinde Leaflet boyutunu yenile */
+  resizeTick: number;
 };
 
 export default function AnimalMapLeaflet({
@@ -183,6 +196,7 @@ export default function AnimalMapLeaflet({
   onViewportChange,
   viewportReportingEnabled,
   flyToUser,
+  resizeTick,
 }: Props) {
   return (
     <MapContainer
@@ -192,6 +206,7 @@ export default function AnimalMapLeaflet({
       className="z-0 h-full w-full"
       style={{ height: "100%", width: "100%" }}
     >
+      <MapResizeInvalidator tick={resizeTick} />
       <TileLayer
         attribution={OSM_ATTRIBUTION}
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
