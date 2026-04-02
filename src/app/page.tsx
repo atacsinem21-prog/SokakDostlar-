@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { HomeFeatureGrid } from "@/components/home/home-feature-grid";
 import { HomeMobileAddFab } from "@/components/home/home-mobile-add-fab";
+import { HomePatiliEkleSheetGate } from "@/components/home/home-patili-ekle-sheet-gate";
 import { BRAND_PRODUCT, BRAND_SITE } from "@/lib/brand";
 import { SEO_HOME_DESCRIPTION, SEO_HOME_TITLE, SEO_OG_IMAGE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
@@ -80,6 +82,9 @@ export default function HomePage() {
         </section>
 
         <HomeMobileAddFab />
+        <Suspense fallback={null}>
+          <HomePatiliEkleSheetGate />
+        </Suspense>
 
         <footer className="mt-16 border-t border-zinc-200/60 bg-gradient-to-b from-transparent to-zinc-50/50 pt-10 text-center sm:text-left">
           <p className="text-xs leading-relaxed text-zinc-500 sm:text-sm">

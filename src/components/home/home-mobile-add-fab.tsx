@@ -10,9 +10,10 @@ import { useAuthEmail } from "@/hooks/use-auth-email";
 export function HomeMobileAddFab() {
   const email = useAuthEmail();
   const loggedIn = Boolean(email);
+  const nextPath = "/?add=patili-ekle";
   const href = loggedIn
-    ? "/harita/patili-ekle"
-    : "/giris?next=/harita/patili-ekle";
+    ? nextPath
+    : `/giris?next=${encodeURIComponent(nextPath)}`;
 
   return (
     <Link
