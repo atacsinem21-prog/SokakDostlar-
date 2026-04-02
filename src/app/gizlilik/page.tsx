@@ -8,7 +8,8 @@ import { getSiteUrl } from "@/lib/site-url";
 
 const gizlilikUrl = `${getSiteUrl()}/gizlilik`;
 const gizlilikTitle = "Gizlilik ve veri — PATİSİD";
-const gizlilikDesc = "Konum, hesap ve fotoğraf verilerinin kullanımı hakkında bilgi";
+const gizlilikDesc =
+  "Konum, hesap ve görev verilerinin kullanımı hakkında özet — PATİSİD.";
 
 export const metadata: Metadata = {
   title: gizlilikTitle,
@@ -75,12 +76,18 @@ export default function GizlilikPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 font-medium text-zinc-900">İyilik kanıtı fotoğrafı</h2>
+          <h2 className="mb-2 font-medium text-zinc-900">Görevler ve iyilik puanı</h2>
           <p>
-            Yüklediğin fotoğraf, mama ve su kabı doğrulaması için işlenir
-            (OpenAI, Ollama veya test modu). Görselleri yalnızca hayvan refahı
-            ile uyumlu, saygılı içeriklerle paylaş. Başkalarının mahremiyetine ve
-            güvenliğine saygı göster.
+            İyilik puanı, görevleri uygulama içinde tamamladığında eklenir;{" "}
+            <strong className="text-zinc-800">fotoğraf yükleme veya yapay zekâ ile
+            görüntü doğrulaması yapılmaz.</strong> Eski “fotoğraflı kanıt” akışı
+            kapatılmıştır. Yanlış veya kötüye kullanım topluluğa zarar verir;
+            görevleri yalnızca gerçekten yerine getirdiğinde tamamlamanı rica
+            ederiz. Özet bilgi için{" "}
+            <Link href="/kanit" className="font-medium text-zinc-900 underline">
+              İyilik kanıtı
+            </Link>{" "}
+            sayfasına bakabilirsin.
           </p>
         </section>
 

@@ -22,6 +22,29 @@ function isPublicAuthPath(pathname: string): boolean {
   return false;
 }
 
+/**
+ * Oturum olmadan görülebilen sayfalar (SEO, bilgilendirme, ana sayfa).
+ * Harita, görevler, liderlik ve patili ekle burada yok — giriş gerekir.
+ */
+function isPublicPath(pathname: string): boolean {
+  if (isPublicAuthPath(pathname)) return true;
+  if (pathname === "/") return true;
+  if (
+    pathname === "/hakkinda" ||
+    pathname === "/gizlilik" ||
+    pathname === "/cerez-politikasi"
+  ) {
+    return true;
+  }
+  if (pathname === "/ara" || pathname === "/kanit") return true;
+  if (pathname.startsWith("/rehber/")) return true;
+  if (pathname === "/robots.txt" || pathname === "/sitemap.xml") return true;
+  if (pathname === "/opengraph-image" || pathname.startsWith("/opengraph-image")) {
+    return true;
+  }
+  return false;
+}
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -61,7 +84,7 @@ export async function updateSession(request: NextRequest) {
     const { data } = await supabase.auth.getUser();
     user = data.user;
   }
-  /* env yokken oturum okunamaz; user=null — yine de / ve diger sayfalar /giris'e duser */
+  /* env yokken oturum okunamaz; user=null — public olmayan rotalar /giris'e yönlendirilir */
 
   const pathname = request.nextUrl.pathname;
 
@@ -79,7 +102,7 @@ export async function updateSession(request: NextRequest) {
     return redirectResponse;
   }
 
-  if (!user && !isPublicAuthPath(pathname)) {
+  if (!user && !isPublicPath(pathname)) {
     const returnTo = request.nextUrl.pathname + request.nextUrl.search;
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/giris";
