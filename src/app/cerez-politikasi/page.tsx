@@ -3,14 +3,34 @@ import Link from "next/link";
 
 import { PageShell } from "@/components/ui/page-shell";
 import { BRAND_SITE } from "@/lib/brand";
+import { SEO_OG_IMAGE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
+const cerezUrl = `${getSiteUrl()}/cerez-politikasi`;
+const cerezTitle = `Çerez politikası — ${BRAND_SITE}`;
+const cerezDesc =
+  "Hangi çerezlerin kullanıldığı, amaçları ve tercihlerini nasıl yönetebileceğin — sokak hayvanları topluluğu için şeffaflık.";
+
 export const metadata: Metadata = {
-  title: `Çerez politikası — ${BRAND_SITE}`,
-  description:
-    "Hangi çerezlerin kullanıldığı, amaçları ve tercihlerini nasıl yönetebileceğin — sokak hayvanları topluluğu için şeffaflık.",
+  title: cerezTitle,
+  description: cerezDesc,
   alternates: {
-    canonical: `${getSiteUrl()}/cerez-politikasi`,
+    canonical: cerezUrl,
+  },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: cerezUrl,
+    siteName: BRAND_SITE,
+    title: cerezTitle,
+    description: cerezDesc,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: cerezTitle,
+    description: cerezDesc,
+    images: [SEO_OG_IMAGE.url],
   },
 };
 

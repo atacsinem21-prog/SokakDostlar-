@@ -4,15 +4,15 @@ import { BRAND_SITE } from "@/lib/brand";
 import { SEO_OG_IMAGE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
-const url = `${getSiteUrl()}/giris`;
-const title = `Giriş — ${BRAND_SITE}`;
-const description = "Hesabınla giriş yap, iyilik görevleri ve topluluk özelliklerine katıl.";
+const url = `${getSiteUrl()}/harita/patili-ekle`;
+const title = `Patili ekle — ${BRAND_SITE}`;
+const description =
+  "Gördüğün sokak dostunu haritaya işaretle; diğer gönüllülere yardımcı ol — PATİSİD İyilik Haritası.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: url },
-  robots: { index: false, follow: true },
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -30,10 +30,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function GirisLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PatiliEkleLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

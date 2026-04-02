@@ -1,6 +1,36 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/ui/page-shell";
+import { BRAND_SITE } from "@/lib/brand";
+import { SEO_OG_IMAGE } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
+
+const kanitUrl = `${getSiteUrl()}/kanit`;
+const kanitTitle = `İyilik kanıtı — ${BRAND_SITE}`;
+const kanitDesc =
+  "PATİSİD’de puan ve görevler: fotoğraf zorunluluğu yok; iyilik onur ve merhamete dayanır.";
+
+export const metadata: Metadata = {
+  title: kanitTitle,
+  description: kanitDesc,
+  alternates: { canonical: kanitUrl },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: kanitUrl,
+    siteName: BRAND_SITE,
+    title: kanitTitle,
+    description: kanitDesc,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: kanitTitle,
+    description: kanitDesc,
+    images: [SEO_OG_IMAGE.url],
+  },
+};
 
 /**
  * Eski fotoğraflı AI kanıt akışı kapatıldı; görevler /gorevler üzerinden tamamlanıyor.

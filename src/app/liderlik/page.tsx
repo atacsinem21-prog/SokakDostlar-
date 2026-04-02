@@ -1,6 +1,36 @@
+import type { Metadata } from "next";
+
 import { PageShell } from "@/components/ui/page-shell";
-import { getServerRequestOrigin } from "@/lib/site-url";
+import { BRAND_SITE } from "@/lib/brand";
+import { SEO_OG_IMAGE } from "@/lib/seo";
+import { getServerRequestOrigin, getSiteUrl } from "@/lib/site-url";
 import type { LeaderboardRow } from "@/types/gamification";
+
+const liderlikUrl = `${getSiteUrl()}/liderlik`;
+const liderlikTitle = `İyilik liderliği — ${BRAND_SITE}`;
+const liderlikDesc =
+  "Topluluk iyilik puanları ve liderlik tablosu — rekabet değil, birlikte destek; PATİSİD.";
+
+export const metadata: Metadata = {
+  title: liderlikTitle,
+  description: liderlikDesc,
+  alternates: { canonical: liderlikUrl },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: liderlikUrl,
+    siteName: BRAND_SITE,
+    title: liderlikTitle,
+    description: liderlikDesc,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: liderlikTitle,
+    description: liderlikDesc,
+    images: [SEO_OG_IMAGE.url],
+  },
+};
 
 async function getLeaderboard(): Promise<LeaderboardRow[]> {
   const base = await getServerRequestOrigin();

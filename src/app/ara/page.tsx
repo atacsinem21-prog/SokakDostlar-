@@ -3,16 +3,35 @@ import Link from "next/link";
 
 import { PageShell } from "@/components/ui/page-shell";
 import { BRAND_SITE } from "@/lib/brand";
+import { SEO_OG_IMAGE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
 const baseUrl = getSiteUrl();
+const araUrl = `${baseUrl}/ara`;
+const araTitle = `Arama — ${BRAND_SITE}`;
+const araDesc =
+  "Sokak hayvanları kayıtları ve harita üzerinde arama; PATİSİD İyilik Haritası.";
 
 export const metadata: Metadata = {
-  title: `Arama — ${BRAND_SITE}`,
-  description:
-    "Sokak hayvanları kayıtları ve harita üzerinde arama; PATİSİD İyilik Haritası.",
-  alternates: { canonical: `${baseUrl}/ara` },
+  title: araTitle,
+  description: araDesc,
+  alternates: { canonical: araUrl },
   robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: araUrl,
+    siteName: BRAND_SITE,
+    title: araTitle,
+    description: araDesc,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: araTitle,
+    description: araDesc,
+    images: [SEO_OG_IMAGE.url],
+  },
 };
 
 type Props = {

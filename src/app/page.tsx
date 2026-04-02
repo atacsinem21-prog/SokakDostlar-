@@ -4,10 +4,30 @@ import Link from "next/link";
 import { HomeFeatureGrid } from "@/components/home/home-feature-grid";
 import { HomeMobileAddFab } from "@/components/home/home-mobile-add-fab";
 import { BRAND_PRODUCT, BRAND_SITE } from "@/lib/brand";
+import { SEO_HOME_DESCRIPTION, SEO_HOME_TITLE, SEO_OG_IMAGE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
+const homeUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  alternates: { canonical: getSiteUrl() },
+  title: { absolute: SEO_HOME_TITLE },
+  description: SEO_HOME_DESCRIPTION,
+  alternates: { canonical: homeUrl },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: homeUrl,
+    siteName: BRAND_SITE,
+    title: SEO_HOME_TITLE,
+    description: SEO_HOME_DESCRIPTION,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO_HOME_TITLE,
+    description: SEO_HOME_DESCRIPTION,
+    images: [SEO_OG_IMAGE.url],
+  },
 };
 
 export default function HomePage() {
@@ -82,6 +102,20 @@ export default function HomePage() {
               className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
             >
               Hakkında
+            </Link>
+            <span className="mx-2 text-zinc-300">·</span>
+            <Link
+              href="/rehber/sokak-hayvanlarina-destek"
+              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
+            >
+              Sokak hayvanlarına destek rehberi
+            </Link>
+            <span className="mx-2 text-zinc-300">·</span>
+            <Link
+              href="/rehber/sokak-hayvanlarina-mama-vermek"
+              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
+            >
+              Sokak hayvanlarına mama rehberi
             </Link>
             <span className="mx-2 text-zinc-300">·</span>
             Kayıt olarak görev ve puan akışına katılabilirsin.

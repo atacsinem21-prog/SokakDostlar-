@@ -2,10 +2,33 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/ui/page-shell";
+import { BRAND_SITE } from "@/lib/brand";
+import { SEO_OG_IMAGE } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
+
+const gizlilikUrl = `${getSiteUrl()}/gizlilik`;
+const gizlilikTitle = "Gizlilik ve veri — PATİSİD";
+const gizlilikDesc = "Konum, hesap ve fotoğraf verilerinin kullanımı hakkında bilgi";
 
 export const metadata: Metadata = {
-  title: "Gizlilik ve veri — PATİSİD",
-  description: "Konum, hesap ve fotoğraf verilerinin kullanımı hakkında bilgi",
+  title: gizlilikTitle,
+  description: gizlilikDesc,
+  alternates: { canonical: gizlilikUrl },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: gizlilikUrl,
+    siteName: BRAND_SITE,
+    title: gizlilikTitle,
+    description: gizlilikDesc,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: gizlilikTitle,
+    description: gizlilikDesc,
+    images: [SEO_OG_IMAGE.url],
+  },
 };
 
 export default function GizlilikPage() {

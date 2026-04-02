@@ -3,14 +3,34 @@ import Link from "next/link";
 
 import { PageShell } from "@/components/ui/page-shell";
 import { BRAND_SITE, BRAND_TAGLINE } from "@/lib/brand";
+import { SEO_OG_IMAGE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
+const hakkindaUrl = `${getSiteUrl()}/hakkinda`;
+const hakkindaTitle = `Hakkında — ${BRAND_SITE}`;
+const hakkindaDesc =
+  "PATİSİD İyilik Haritası nedir? Sokak hayvanları için gönüllü harita, görevler ve topluluk — kayıt olmadan bilgi.";
+
 export const metadata: Metadata = {
-  title: `Hakkında — ${BRAND_SITE}`,
-  description:
-    "PATİSİD İyilik Haritası nedir? Sokak hayvanları için gönüllü harita, görevler ve topluluk — kayıt olmadan bilgi.",
+  title: hakkindaTitle,
+  description: hakkindaDesc,
   alternates: {
-    canonical: `${getSiteUrl()}/hakkinda`,
+    canonical: hakkindaUrl,
+  },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: hakkindaUrl,
+    siteName: BRAND_SITE,
+    title: hakkindaTitle,
+    description: hakkindaDesc,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: hakkindaTitle,
+    description: hakkindaDesc,
+    images: [SEO_OG_IMAGE.url],
   },
 };
 

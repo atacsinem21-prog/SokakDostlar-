@@ -5,7 +5,12 @@ import { ConditionalFooter } from "@/components/conditional-footer";
 import { WebsiteJsonLd } from "@/components/seo/website-json-ld";
 import { SiteHeader } from "@/components/site-header";
 import { BRAND_SITE } from "@/lib/brand";
-import { SEO_DEFAULT_DESCRIPTION, SEO_DEFAULT_TITLE, SEO_KEYWORDS } from "@/lib/seo";
+import {
+  SEO_DEFAULT_DESCRIPTION,
+  SEO_DEFAULT_TITLE,
+  SEO_KEYWORDS,
+  SEO_OG_IMAGE,
+} from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
 import "./globals.css";
@@ -34,11 +39,13 @@ export const metadata: Metadata = {
     siteName: BRAND_SITE,
     title: SEO_DEFAULT_TITLE,
     description: SEO_DEFAULT_DESCRIPTION,
+    images: [SEO_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: SEO_DEFAULT_TITLE,
     description: SEO_DEFAULT_DESCRIPTION,
+    images: [SEO_OG_IMAGE.url],
   },
 };
 

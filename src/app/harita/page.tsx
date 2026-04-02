@@ -1,4 +1,35 @@
+import type { Metadata } from "next";
+
 import { AnimalMap } from "@/components/map/animal-map";
+import { BRAND_SITE } from "@/lib/brand";
+import { SEO_OG_IMAGE } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
+
+const haritaUrl = `${getSiteUrl()}/harita`;
+const haritaTitle = `Harita — ${BRAND_SITE}`;
+const haritaDesc =
+  "Sokak hayvanı kayıtlarını haritada gör; yakınındaki bildirimler ve topluluk verisi — PATİSİD İyilik Haritası.";
+
+export const metadata: Metadata = {
+  title: haritaTitle,
+  description: haritaDesc,
+  alternates: { canonical: haritaUrl },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: haritaUrl,
+    siteName: BRAND_SITE,
+    title: haritaTitle,
+    description: haritaDesc,
+    images: [SEO_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: haritaTitle,
+    description: haritaDesc,
+    images: [SEO_OG_IMAGE.url],
+  },
+};
 
 export default function HaritaPage() {
   return (

@@ -10,6 +10,8 @@ const nav = [
   { href: "/harita", label: "Harita" },
   { href: "/gorevler", label: "Görevler" },
   { href: "/liderlik", label: "Liderlik" },
+  { href: "/rehber/sokak-hayvanlarina-destek", label: "Yardım rehberi" },
+  { href: "/rehber/sokak-hayvanlarina-mama-vermek", label: "Mama rehberi" },
   { href: "/hakkinda", label: "Hakkında" },
   { href: "/gizlilik", label: "Gizlilik" },
   { href: "/cerez-politikasi", label: "Çerez politikası" },
@@ -69,7 +71,9 @@ export function SiteFooter() {
             if (
               item.href === "/gizlilik" ||
               item.href === "/cerez-politikasi" ||
-              item.href === "/hakkinda"
+              item.href === "/hakkinda" ||
+              item.href === "/rehber/sokak-hayvanlarina-destek" ||
+              item.href === "/rehber/sokak-hayvanlarina-mama-vermek"
             ) {
               return (
                 <Link key={item.href} href={item.href} className={linkActive}>
