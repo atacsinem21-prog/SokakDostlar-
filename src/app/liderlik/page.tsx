@@ -42,11 +42,12 @@ async function getLeaderboard(): Promise<LeaderboardRow[]> {
 
 export default async function LiderlikPage() {
   const items = await getLeaderboard();
+  const displayName = "xxxx";
 
   return (
     <PageShell
       title="İyilik liderliği"
-      lead="Topluluğun topladığı iyilik puanları. Rekabet değil, birlikte destek olma."
+      lead="Topluluğun topladığı iyilik puanları. Rekabet değil, birlikte destek olma. İsimler güvenlik için gizlenmiştir."
     >
       <div className="card-surface overflow-hidden p-0">
         {items.length === 0 ? (
@@ -59,7 +60,7 @@ export default async function LiderlikPage() {
                   <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-zinc-100 text-xs font-semibold text-zinc-700">
                     {idx + 1}
                   </span>
-                  <span className="font-medium text-zinc-900">{row.profil_adi}</span>
+                  <span className="font-medium text-zinc-900">{displayName}</span>
                 </div>
                 <span className="text-sm font-semibold text-emerald-700">
                   {row.toplam_iyilik_puani} puan

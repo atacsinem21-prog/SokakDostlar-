@@ -4,6 +4,18 @@ import { createPublicSupabaseClient } from "@/lib/supabase/public-server";
 import type { LeaderboardRow } from "@/types/gamification";
 
 export async function GET() {
+  // Demo/staging için: isimleri gizle ve yüksek puan göster.
+  // Prod ortamda (gerçek kullanıcı verisi) üzerinden ilerler.
+  const isDemo = process.env.NODE_ENV !== "production";
+  if (isDemo) {
+    const leaderboard = Array.from({ length: 20 }, (_, i) => ({
+      id: `demo-${i + 1}`,
+      profil_adi: "xxxx",
+      toplam_iyilik_puani: 10_000 - i * 420 + (i % 3) * 35,
+    }));
+    return NextResponse.json({ leaderboard });
+  }
+
   try {
     const supabase = createPublicSupabaseClient();
     const { data, error } = await supabase
