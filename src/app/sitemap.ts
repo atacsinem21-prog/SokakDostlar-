@@ -13,7 +13,9 @@ const paths: string[] = [
   "/gizlilik",
   "/cerez-politikasi",
   "/hakkinda",
+  "/mahalle-gruplari",
   "/ara",
+  "/gruplar",
   "/rehber/sokak-hayvanlarina-destek",
   "/rehber/sokak-hayvanlarina-mama-vermek",
 ];
@@ -25,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const rehberWeekly = new Set([
     "/rehber/sokak-hayvanlarina-destek",
     "/rehber/sokak-hayvanlarina-mama-vermek",
+    "/mahalle-gruplari",
   ]);
 
   return paths.map((path) => ({

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 import { PageShell } from "@/components/ui/page-shell";
 
@@ -30,6 +30,23 @@ export default function PatiliEklePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [doneId, setDoneId] = useState<string | null>(null);
+  const locatedOnceRef = useRef(false);
+
+  useEffect(() => {
+    if (locatedOnceRef.current) return;
+    if (typeof navigator === "undefined" || !navigator.geolocation) return;
+    locatedOnceRef.current = true;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLat(pos.coords.latitude);
+        setLng(pos.coords.longitude);
+      },
+      () => {
+        // Sessizce varsayılan konumda kal.
+      },
+      { enableHighAccuracy: false, timeout: 12_000, maximumAge: 60_000 },
+    );
+  }, []);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();

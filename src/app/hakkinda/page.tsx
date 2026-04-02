@@ -133,6 +133,23 @@ export default function HakkindaPage() {
           </ul>
         </section>
 
+        <section aria-labelledby="hakkinda-gruplar">
+          <h2 id="hakkinda-gruplar" className="mb-3 text-lg font-semibold text-zinc-900">
+            Mahalle grupları ve yerel koordinasyon
+          </h2>
+          <p>
+            Platformun en kritik parçalarından biri <strong>mahalle grupları</strong> akışıdır.
+            Bu alan, aynı bölgede yaşayan gönüllülerin acil ve rutin ihtiyaçları daha hızlı
+            koordine etmesini sağlar. Grup özelliğinin nasıl çalıştığını, kimler için uygun
+            olduğunu ve güvenli kullanım kurallarını ayrı sayfada detaylı anlattık:
+          </p>
+          <p className="mt-3">
+            <Link href="/mahalle-gruplari" className="font-medium text-zinc-900 underline">
+              Mahalle grupları nedir? Ne işe yarar?
+            </Link>
+          </p>
+        </section>
+
         <section aria-labelledby="hakkinda-ilkeler">
           <h2 id="hakkinda-ilkeler" className="mb-3 text-lg font-semibold text-zinc-900">
             Topluluk ilkeleri ve dil

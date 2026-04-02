@@ -4,12 +4,14 @@ import Link from "next/link";
 
 import { AUTH_POWDER_CARD } from "@/lib/brand";
 import { useAuthEmail } from "@/hooks/use-auth-email";
+import { usePlatformAdmin } from "@/hooks/use-platform-admin";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
 
 type AuthNavVariant = "default" | "hero";
 
 export function AuthNav({ variant = "default" }: { variant?: AuthNavVariant }) {
   const email = useAuthEmail();
+  const isPlatformAdmin = usePlatformAdmin();
 
   async function handleLogout() {
     try {
@@ -34,6 +36,18 @@ export function AuthNav({ variant = "default" }: { variant?: AuthNavVariant }) {
   if (email) {
     return (
       <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+        {isPlatformAdmin ? (
+          <Link
+            href="/yonetim"
+            className={
+              isHero
+                ? "rounded-lg border border-white/40 bg-white/15 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm hover:bg-white/25 sm:text-sm"
+                : "rounded-lg border border-zinc-200 bg-white px-2.5 py-1 text-xs font-medium text-zinc-700 hover:bg-zinc-50 sm:text-sm"
+            }
+          >
+            Yönetim
+          </Link>
+        ) : null}
         <span
           className={`max-w-[10rem] truncate text-xs sm:max-w-[14rem] sm:text-sm ${
             isHero ? "text-white/90 drop-shadow" : "text-zinc-500"

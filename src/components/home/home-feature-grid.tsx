@@ -7,6 +7,7 @@ import { useAuthEmail } from "@/hooks/use-auth-email";
 
 import {
   IconAddPin,
+  IconGroups,
   IconMap,
   IconTasks,
   IconTrophy,
@@ -45,6 +46,12 @@ const features: Feature[] = [
     title: "Liderlik",
     desc: "Topluluğun iyilik puanları.",
     Icon: IconTrophy,
+  },
+  {
+    href: "/mahalle-gruplari",
+    title: "Mahalle Grupları",
+    desc: "Önce grup modelini keşfet, sonra acil yardımlaşma alanına geç.",
+    Icon: IconGroups,
   },
 ];
 
@@ -100,7 +107,7 @@ export function HomeFeatureGrid() {
             key={item.href}
             className={item.highlight ? "sm:col-span-2 lg:col-span-1" : ""}
           >
-            {canNavigate ? (
+            {canNavigate || item.href === "/mahalle-gruplari" ? (
               <Link href={item.href} className={cardClass}>
                 {inner}
               </Link>

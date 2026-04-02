@@ -31,14 +31,22 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/") return true;
   if (
     pathname === "/hakkinda" ||
+    pathname === "/mahalle-gruplari" ||
     pathname === "/gizlilik" ||
     pathname === "/cerez-politikasi"
   ) {
     return true;
   }
   if (pathname === "/ara" || pathname === "/kanit") return true;
+  if (pathname === "/gruplar" || pathname.startsWith("/gruplar/")) return true;
   if (pathname.startsWith("/rehber/")) return true;
-  if (pathname === "/robots.txt" || pathname === "/sitemap.xml") return true;
+  if (
+    pathname === "/robots.txt" ||
+    pathname === "/sitemap.xml" ||
+    pathname === "/manifest.webmanifest"
+  ) {
+    return true;
+  }
   if (pathname === "/opengraph-image" || pathname.startsWith("/opengraph-image")) {
     return true;
   }

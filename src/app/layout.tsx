@@ -19,6 +19,7 @@ const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  manifest: "/manifest.webmanifest",
   title: SEO_DEFAULT_TITLE,
   description: SEO_DEFAULT_DESCRIPTION,
   keywords: SEO_KEYWORDS,
@@ -27,6 +28,11 @@ export const metadata: Metadata = {
   creator: BRAND_SITE,
   publisher: BRAND_SITE,
   formatDetection: { email: false, address: false, telephone: false },
+  appleWebApp: {
+    capable: true,
+    title: BRAND_SITE,
+    statusBarStyle: "default",
+  },
   robots: {
     index: true,
     follow: true,

@@ -54,11 +54,21 @@ function MapResizeInvalidator({ tick }: { tick: number }) {
   const map = useMap();
   useEffect(() => {
     const run = () => map.invalidateSize({ animate: tick > 0 });
+    run();
     const id1 = window.setTimeout(run, 16);
     const id2 = window.setTimeout(run, 280);
+    const id3 = window.setTimeout(run, 900);
+    const id4 = window.setTimeout(run, 1600);
+    const onViewportResize = () => run();
+    window.addEventListener("resize", onViewportResize);
+    window.addEventListener("orientationchange", onViewportResize);
     return () => {
       window.clearTimeout(id1);
       window.clearTimeout(id2);
+      window.clearTimeout(id3);
+      window.clearTimeout(id4);
+      window.removeEventListener("resize", onViewportResize);
+      window.removeEventListener("orientationchange", onViewportResize);
     };
   }, [map, tick]);
   return null;

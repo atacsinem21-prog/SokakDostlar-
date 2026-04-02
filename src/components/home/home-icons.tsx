@@ -60,3 +60,13 @@ export function IconTrophy(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function IconGroups(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden {...props}>
+      <circle {...s} cx="9" cy="8" r="2.5" />
+      <circle {...s} cx="16.5" cy="9.5" r="2" />
+      <path {...s} d="M4.5 18a4.5 4.5 0 019 0M13 18a3.5 3.5 0 017 0" />
+    </svg>
+  );
+}

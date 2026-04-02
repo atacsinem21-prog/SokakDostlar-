@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Suspense } from "react";
 
 import { HomeFeatureGrid } from "@/components/home/home-feature-grid";
+import { HomeIntroGate } from "@/components/home/home-intro-gate";
 import { HomeMobileAddFab } from "@/components/home/home-mobile-add-fab";
-import { HomePatiliEkleSheetGate } from "@/components/home/home-patili-ekle-sheet-gate";
 import { BRAND_PRODUCT, BRAND_SITE } from "@/lib/brand";
 import { SEO_HOME_DESCRIPTION, SEO_HOME_TITLE, SEO_OG_IMAGE } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
@@ -35,6 +33,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="relative min-h-[calc(100dvh-8rem)] overflow-hidden bg-gradient-to-b from-stone-50 via-white to-stone-100/90">
+      <HomeIntroGate />
       <div
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_100%_70%_at_50%_-15%,rgba(251,191,36,0.14),transparent_58%)]"
         aria-hidden
@@ -82,50 +81,7 @@ export default function HomePage() {
         </section>
 
         <HomeMobileAddFab />
-        <Suspense fallback={null}>
-          <HomePatiliEkleSheetGate />
-        </Suspense>
 
-        <footer className="mt-16 border-t border-zinc-200/60 bg-gradient-to-b from-transparent to-zinc-50/50 pt-10 text-center sm:text-left">
-          <p className="text-xs leading-relaxed text-zinc-500 sm:text-sm">
-            <Link
-              href="/gizlilik"
-              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
-            >
-              Gizlilik ve veri
-            </Link>
-            <span className="mx-2 text-zinc-300">·</span>
-            <Link
-              href="/cerez-politikasi"
-              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
-            >
-              Çerez politikası
-            </Link>
-            <span className="mx-2 text-zinc-300">·</span>
-            <Link
-              href="/hakkinda"
-              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
-            >
-              Hakkında
-            </Link>
-            <span className="mx-2 text-zinc-300">·</span>
-            <Link
-              href="/rehber/sokak-hayvanlarina-destek"
-              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
-            >
-              Sokak hayvanlarına destek rehberi
-            </Link>
-            <span className="mx-2 text-zinc-300">·</span>
-            <Link
-              href="/rehber/sokak-hayvanlarina-mama-vermek"
-              className="font-medium text-zinc-700 underline decoration-zinc-300/90 underline-offset-[3px] transition hover:text-zinc-900 hover:decoration-zinc-500"
-            >
-              Sokak hayvanlarına mama rehberi
-            </Link>
-            <span className="mx-2 text-zinc-300">·</span>
-            Kayıt olarak görev ve puan akışına katılabilirsin.
-          </p>
-        </footer>
       </main>
     </div>
   );
